@@ -15,11 +15,6 @@ class MainPage extends Page{
         return cy.get('div#onesignal-slidedown-dialog button.secondary');
     }
 
-    // -- Navigation menu --
-    navigationMenuNewsButtonRU(){
-        return cy.get('#menu-item-912064 > a[href="https://ain.ua/post-list/"]');
-    }
-
     //  -- Rounded switch --
 
     rounderSwitcherLabelEN (){
@@ -30,6 +25,11 @@ class MainPage extends Page{
         return cy.get("#header span.lang-switcher a[href~=\"https://ain.ua/en\"]");
     }
 
+    // -- Methods --
+
+    //verify main page url
+
+    
 }
 
 export default MainPage;

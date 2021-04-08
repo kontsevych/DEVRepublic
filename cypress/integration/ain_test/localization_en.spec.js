@@ -1,23 +1,25 @@
 import MainPage from "../pages/main.page";
+import NavigationMenu from "../pages/navigationMenu"
 import {settings} from "../../fixtures/settings";
 
-describe("Check English localization", () => {
+describe("Verify an ability to switch on the English localization", () => {
     const mainPage = new MainPage();
+    const navigationMenu = new NavigationMenu();
 
     before(() =>{
       mainPage.open(settings.site_url);
       cy.url().should('contain', settings.site_url);
-      cy.get(mainPage.subscribePopUp(), {timeout: 5000}).should('be.visible');
-      cy.get(mainPage.subscribePopUpCancelButton()).click();
+      mainPage.subscribePopUp({ timeout: 10000 }).should('be.visible');
+      mainPage.subscribePopUpCancelButton().click();
     })
     context("Check language change", () => {
       it("Verify actual localization", () =>{
-          cy.get(mainPage.navigationMenuNewsButtonRU()).should('contain', settings.navigationMenuNewsButtonRu);
-          cy.get('.lang-slug').should('contain', settings.labelEN);
+          navigationMenu.news().should('contain.text', settings.navigationMenuNewsRU);
+          mainPage.rounderSwitcherLabelEN().should('contain.text', settings.labelEN);
         })
       it("Switch language button", () => {
-          cy.get(mainPage.rounderSwitcher()).click();
-          cy.get("#menu-item-810947 > a[href~=\"https://ain.ua/en/tag/news/\"]").should('contain', 'news');
+          mainPage.rounderSwitcher().click();
+          navigationMenu.newsEN().should('contain.text', settings.navigationMenuNewsEN);
       })
     })
 })
